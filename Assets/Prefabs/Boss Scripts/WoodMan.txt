@@ -1,0 +1,231 @@
+.WoodMan{
+    .init{
+        Set("lifePoint", 100);
+		Set("attack", 10);
+		Set("isAttacker", true);
+		Set("isDefender", true);
+		Set("isFlipper", false);
+		Set("isFlippable", false);
+		Set("isProjectile", false);
+		Set("group", "Enemy");
+		Set("x", 5.76);
+		Set("y", -4.41);
+		Set("width", 0.64);
+		Set("height", 0.64);
+		Set("horizontalDirection", 1);
+		Set("verticalDirection", 1);
+		Set("isHittableByProjectile", false);
+    }
+    .state1{
+        .seq1{
+            Spawn("CircleLeaf1", 0, -1, 0.48, 0.48, "TowardPlayer");
+            Spawn("CircleLeaf2", 1, 0, 0.48, 0.48, "TowardPlayer");
+            Spawn("CircleLeaf3", 0, 1, 0.48, 0.48, "TowardPlayer");
+            Spawn("CircleLeaf4", -1, 0, 0.48, 0.48, "TowardPlayer");
+            ToState("state2");
+        }
+    }
+    .state2{
+        .seq1{
+            Wait(2000);
+            Spawn("FallingLeaf1", 0, 0, 0.64, 0.64, "Default");
+            Spawn("FallingLeaf2", 0, 0, 0.64, 0.64, "Default");
+            Spawn("FallingLeaf3", 0, 0, 0.64, 0.64, "Default");
+            Spawn("FallingLeaf4", 0, 0, 0.64, 0.64, "Default");
+            ToState("state3");
+        }
+    }
+    .state3{
+        .seq1{
+            Wait(200);
+            FlipTowardPlayer();
+            Move(3.5, Linear(-9.81 * 3, 10), IsCollidedWith("Horizontal Environment"));
+            Wait(4000);
+            ToState("state1");
+        }
+    }
+}
+.CircleLeaf1{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            Move(Sin(3, 3.14, -1.57), Sin(3, 3.14, 0), Times(100, true));
+            ToState("state2");
+        }
+    }
+    .state2{
+        .seq2{
+            Move(Sin(3, 3.14, -1.57) + 6, Sin(3, 3.14, 0), false);
+        }
+    }
+}
+.CircleLeaf2{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            Move(Sin(3, 3.14, 3.14), Sin(3, 3.14, -1.57), Times(100, true));
+            ToState("state2");
+        }
+    }
+    .state2{
+        .seq2{
+            Move(Sin(3, 3.14, 3.14) + 6, Sin(3, 3.14, -1.57), false);
+        }
+    }
+}
+.CircleLeaf3{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            Move(Sin(3, 3.14, 1.57), Sin(3, 3.14, 3.14), Times(100, true));
+            ToState("state2");
+        }
+    }
+    .state2{
+        .seq2{
+            Move(Sin(3, 3.14, 1.57) + 6, Sin(3, 3.14, 3.14), false);
+        }
+    }
+}
+.CircleLeaf4{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            Move(Sin(3, 3.14, 0), Sin(3, 3.14, -4.71), Times(100, true));
+            ToState("state2");
+        }
+    }
+    .state2{
+        .seq2{
+            Move(Sin(3, 3.14, 0) + 6, Sin(3, 3.14, -4.71), false);
+        }
+    }
+}
+.FallingLeaf1{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("x", -6);
+		Set("y", 4);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            Move(Sin(5, 9.42, 0), -2, false);
+        }
+    }
+}
+.FallingLeaf2{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("x", -2);
+		Set("y", 4);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            Move(Sin(5, 9.42, 0), -2, false);
+        }
+    }
+}
+.FallingLeaf3{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("x", 2);
+		Set("y", 4);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            Move(Sin(5, 9.42, 0), -2, false);
+        }
+    }
+}
+.FallingLeaf4{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("x", 6);
+		Set("y", 4);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            Move(Sin(5, 9.42, 0), -2, false);
+        }
+    }
+}

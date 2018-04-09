@@ -1,0 +1,85 @@
+.MetalMan{
+    .init{
+        Set("lifePoint", 100);
+		Set("attack", 10);
+		Set("isAttacker", true);
+		Set("isDefender", true);
+		Set("isFlipper", false);
+		Set("isFlippable", false);
+		Set("isProjectile", false);
+		Set("group", "Enemy");
+		Set("x", 5.76);
+		Set("y", -4.41);
+		Set("width", 1);
+		Set("height", 1);
+		Set("horizontalDirection", -1);
+		Set("verticalDirection", 1);
+		Set("isHittableByProjectile", false);
+    }
+    .run{
+        .seq1{
+            Move(4.5, 0, Times(200, true));
+            ToState("attack");
+        }
+        .seq2{
+            if (GetX("Self") > 6.5 || GetX("Self") < -6.5) {
+                FlipX();
+                Wait(200);
+            }
+        }
+    }
+    .attack{
+        .seq1{
+            FlipTowardPlayer();
+            Move(GetCenterDistance("Player", "Self"), Linear(-9.81 * 5, 24), IsCollidedWith("Horizontal Environment"));
+            ToState("run");
+        }
+        .seq2{
+            Wait(600);
+            Spawn("Drill", 0.82, 0.5, 0.64, 0.64, "TowardPlayer");
+        }
+    }
+}
+.Drill{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", true);
+        Set("safeEnvironmentList", "Horizontal Environment");
+    }
+    .state1{
+        .seq1{
+            MoveToward(GetX("Player"), GetY("Player"), 15, IsCollidedWith("Horizontal Environment"));
+            Spawn("Explosion", 0, 0, 1.5, 1.5, "Default");
+            Destroy();
+        }
+    }
+}
+.Explosion{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+        Set("safeEnvironmentList", "Horizontal Environment", "Vertical Environment");
+    }
+    .state1{
+        .seq1{
+            Wait(600);
+            Destroy();
+        }
+    }
+}

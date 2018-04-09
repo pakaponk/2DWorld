@@ -1,0 +1,82 @@
+.BubbleMan{
+    .init{
+        Set("lifePoint", 100);
+		Set("attack", 10);
+		Set("isAttacker", true);
+		Set("isDefender", true);
+		Set("isFlipper", false);
+		Set("isFlippable", false);
+		Set("isProjectile", false);
+		Set("group", "Enemy");
+		Set("x", 5.76);
+		Set("y", -4.42);
+		Set("width", 0.64);
+		Set("height", 0.64);
+		Set("horizontalDirection", 1);
+		Set("verticalDirection", 1);
+		Set("isHittableByProjectile", false);
+    }
+    .state1{
+        .seq1{
+            FlipTowardPlayer();
+            Move(GetCenterDistance("Player", "Self") / 1.82, 3, IsY(1.00, "Self"));
+            Move(0, -3, IsCollidedWith("Horizontal Environment"));
+            ToState("state2");
+        }
+        .seq2{
+            Spawn("Buster", 0.52, 0, 0.24, 0.24, "TowardPlayer");
+            Wait(400);
+        }
+    }
+    .state2{
+        .seq1{
+            Spawn("Bubble", 0.52, 0.32, 0.64, 0.64, "TowardPlayer");
+            Wait(800);
+            Spawn("Bubble", 0.52, 0.32, 0.64, 0.64, "TowardPlayer");
+            Wait(800);
+            Spawn("Bubble", 0.52, 0.32, 0.64, 0.64, "TowardPlayer");
+            Wait(800);
+            ToState("state1");
+        }
+    }
+}
+.Bubble{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 10);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", true);
+        Set("safeEnvironmentList", "Horizontal Environment");
+    }
+    .state1{
+        .seq1{
+            Move(2.5, Linear(-9.81, 7), IsCollidedWith("Horizontal Environment"));
+        }
+    }
+}
+.Buster{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 20);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", true);
+        Set("safeEnvironmentList", "Horizontal Environment");
+    }
+    .state1{
+        .seq1{
+            Move(10, 0, false);
+        }
+    }
+}

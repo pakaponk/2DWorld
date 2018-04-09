@@ -1,0 +1,106 @@
+.MetalMan{
+    .init{
+        Set("lifePoint", 100);
+		Set("attack", 10);
+		Set("isAttacker", true);
+		Set("isDefender", true);
+		Set("isFlipper", false);
+		Set("isFlippable", false);
+		Set("isProjectile", false);
+		Set("group", "Enemy");
+		Set("x", 5.76);
+		Set("y", -4.41);
+		Set("width", 1);
+		Set("height", 1);
+		Set("horizontalDirection", 1);
+		Set("verticalDirection", 1);
+		Set("isHittableByProjectile", false);
+    }
+    /*.state1{
+        .seq1{
+            Move(0, Linear(-9.81 * 5, 24), IsCollidedWith("Horizontal Environment"));
+            ToState("state2");
+        }
+        .seq2{
+            if (IsY(1.34, "Self")) {
+                Spawn("Gear", 0.7, 0.5, 0.8, 0.8, "TowardPlayer");
+                Wait(300);
+                Spawn("Gear", 0.7, 0.5, 0.8, 0.8, "TowardPlayer");
+                Wait(100);
+                Spawn("Gear", 0.7, 0.5, 0.8, 0.8, "TowardPlayer");
+                Wait(200);
+            }
+        }
+    }*/
+    .wait{
+        .seq1{
+            Wait(2000);
+            ToState(Random("highJump","moderateJump","lowJump"));
+        }
+        .seq2{
+            if (GetCenterDistance("Player", "Self") < 4) {
+                ToState("evadeJump");
+            }
+        }
+    }
+    .evadeJump{
+        .seq1{
+            FlipTowardPlayer();
+            Move(12, Linear(-9.81 * 5, 24), IsCollidedWith("Horizontal Environment"));
+            ToState("wait");
+        }
+        .seq2{
+            Wait(600);
+            Spawn("Gear", 0.7, 0.5, 0.8, 0.8, "TowardPlayer");
+        }
+    }
+    .highJump{
+        .seq1{
+            Move(0, Linear(-9.81 * 5, 24), IsY(1.34, "Self"));
+            Spawn("Gear", 0.7, 0.5, 0.8, 0.8, "TowardPlayer");
+            Move(0, Linear(-9.81 * 5, 0), IsY(-0.7, "Self"));
+            Spawn("Gear", 0.7, 0.5, 0.8, 0.8, "TowardPlayer");
+            Move(0, Linear(-9.81 * 5, 0), IsY(-3, "Self"));
+            Spawn("Gear", 0.7, 0.5, 0.8, 0.8, "TowardPlayer");
+            Move(0, Linear(-9.81 * 5, 0), IsCollidedWith("Horizontal Environment"));
+            ToState("wait");
+        }
+    }
+    .moderateJump{
+        .seq1{
+            Move(0, Linear(-9.81 * 5, 20), IsY(-0.7, "Self"));
+            Spawn("Gear", 0.7, 0.5, 0.8, 0.8, "TowardPlayer");
+            Move(0, Linear(-9.81 * 5, 0), IsY(-3, "Self"));
+            Spawn("Gear", 0.7, 0.5, 0.8, 0.8, "TowardPlayer");
+            Move(0, Linear(-9.81 * 5, 0), IsCollidedWith("Horizontal Environment"));
+            ToState("wait");
+        }
+    }
+    .lowJump{
+        .seq1{
+            Move(0, Linear(-9.81 * 5, 12), IsY(-3, "Self"));
+            Spawn("Gear", 0.7, 0.5, 0.8, 0.8, "TowardPlayer");
+            Move(0, Linear(-9.81 * 5, 0), IsCollidedWith("Horizontal Environment"));
+            ToState("wait");
+        }
+    }
+}
+.Gear{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            MoveToward(GetX("Player"), GetY("Player"), 10, false);
+        }
+    }
+}

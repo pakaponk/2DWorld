@@ -1,0 +1,37 @@
+{
+  "client": [
+    {
+      "services": {
+        "appinvite_service": {
+          "status": 0
+        }, 
+        "analytics_service": {
+          "status": 0
+        }
+      }, 
+      "oauth_client": [
+        {
+          "client_id": "395404436636-5teoelj6kkkn64n6mfin6ck0t1j0qfur.apps.googleusercontent.com"
+        }
+      ], 
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYkisgG2wIBJXDAZfAENqGgLJMoOl8vPU"
+        }
+      ], 
+      "client_info": {
+        "mobilesdk_app_id": "1:395404436636:ios:0b4028ed4ca241cb", 
+        "android_client_info": {
+          "package_name": "pakapon.rockman"
+        }
+      }
+    }
+  ], 
+  "configuration_version": "1", 
+  "project_info": {
+    "storage_bucket": "sample-e1209.appspot.com", 
+    "project_id": "sample-e1209", 
+    "firebase_url": "https://sample-e1209.firebaseio.com", 
+    "project_number": "395404436636"
+  }
+}
