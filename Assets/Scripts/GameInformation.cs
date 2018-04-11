@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
-using Firebase.Storage;
 using Firebase;
+using Firebase.Storage;
 
 [Serializable]
 public class GameInformation : MonoBehaviour {
@@ -136,7 +134,7 @@ public class GameInformation : MonoBehaviour {
 		
 		StorageReference record_ref = this.storage_ref.Child(fileName);
 		record_ref.PutBytesAsync(Encoding.UTF8.GetBytes(json))
-			.ContinueWith ((Task<StorageMetadata> task) => {
+			.ContinueWith (task => {
 				if (task.IsFaulted || task.IsCanceled) {
 					Debug.Log(task.Exception.ToString());
 					// Uh-oh, an error occurred!
@@ -188,7 +186,6 @@ public class GameInformation : MonoBehaviour {
 
 	[Serializable]
 	public class Entity{
-		
 		public float x;
 		public float y;
 		public float width;
