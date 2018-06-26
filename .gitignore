@@ -36,3 +36,7 @@ sysinfo.txt
 
 # My Preferenece
 [Rr]ecords/
+Assets/google-services.json
+Assets/google-services.json.meta
+Assets/GoogleService-Info.plist
+Assets/GoogleService-Info.plist.meta
