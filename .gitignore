@@ -40,3 +40,9 @@ Assets/google-services.json
 Assets/google-services.json.meta
 Assets/GoogleService-Info.plist
 Assets/GoogleService-Info.plist.meta
+
+# Tensorflow Sharp Files
+Assets/ML-Agents/Plugins/Android*
+Assets/ML-Agents/Plugins/iOS*
+Assets/ML-Agents/Plugins/Computer*
+Assets/ML-Agents/Plugins/System*
