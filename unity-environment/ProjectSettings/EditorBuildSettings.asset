@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/2DWorld/Scenes/BossSelection.unity
+    guid: 6436813f2301f4482a25c69d916deb36
+  - enabled: 1
+    path: Assets/2DWorld/Scenes/Bosses/Shadowman.unity
+    guid: 64e43c1bcd3ee48a8b16d5f016b26e88
+  - enabled: 1
+    path: Assets/2DWorld/Scenes/Bosses/Hardman.unity
+    guid: 2f475576ce3bc4883b0c94b53c40ac8c
+  - enabled: 1
+    path: Assets/2DWorld/Scenes/Bosses/Topman.unity
+    guid: 16911317601e94ab0ac9566f48dbe513
+  - enabled: 1
+    path: Assets/2DWorld/Scenes/Bosses/Bombman.unity
+    guid: 7c3bbf81f3eea41dc8e265a06721259e
+  - enabled: 1
+    path: Assets/2DWorld/Scenes/Bosses/Crashman.unity
+    guid: 7af4b3f4d653d4ba3b903f21c761ccc2
+  - enabled: 1
+    path: Assets/2DWorld/Scenes/Bosses/Bubbleman.unity
+    guid: 5e6e6bd9c97b74e8b9f9844ee45f35d0
+  - enabled: 1
+    path: Assets/2DWorld/Scenes/Bosses/Heatman.unity
+    guid: 81f4ebad5fe0442b6bc6c9e339f72566
+  - enabled: 1
+    path: Assets/2DWorld/Scenes/Bosses/Iceman.unity
+    guid: ef9992ffbf90d4936876fe515b463cdf
+  - enabled: 1
+    path: Assets/2DWorld/Scenes/Bosses/Metalman.unity
+    guid: da3fee1b662274dfc9520791021a06d3
+  - enabled: 1
+    path: Assets/2DWorld/Scenes/Bosses/Woodman.unity
+    guid: 1f538f649b9514db98bddc40ac63a0e4
+  - enabled: 1
+    path: Assets/2DWorld/Scenes/ML/BossFight.unity
+    guid: 996276a8ff61cc44089e625ccab15b4f
+  m_configObjects: {}

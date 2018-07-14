@@ -1,0 +1,58 @@
+.HardMan{
+    .init{
+        Set("lifePoint", 100);
+		Set("attack", 20);
+		Set("isAttacker", true);
+		Set("isDefender", true);
+		Set("isFlipper", false);
+		Set("isFlippable", false);
+		Set("isProjectile", false);
+		Set("group", "Enemy");
+		Set("x", 5.76);
+		Set("y", -4.41);
+		Set("width", 1);
+		Set("height", 1);
+		Set("horizontalDirection", 1);
+		Set("verticalDirection", 1);
+		Set("isHittableByProjectile", false);
+    }
+    .state1{
+        .seq1{
+            FlipTowardPlayer();
+            Move(GetCenterDistance("Player", "Self") / 1.06, 5, IsY(1.00, "Self"));
+            Wait(200);
+            Move(0, -8, IsCollidedWith("Horizontal Environment"));
+            ToState("state2");
+        }
+    }
+    .state2{
+        .seq1{
+            Wait(400);
+            Spawn("RocketArm", 0.8, 0, 0.6, 0.4, "TowardPlayer");
+            Wait(800);
+            Spawn("RocketArm", 0.8, 0, 0.6, 0.4, "TowardPlayer");
+            ToState("state1");
+        }
+    }
+}
+.RocketArm{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            MoveToward(GetX("Player"), GetY("Player"), 10, IsX(GetX("Player") * 1.2, "Self"));
+            Wait(400);
+            MoveToward(GetX("Player"), GetY("Player"), 10, false);
+        }
+    }
+}

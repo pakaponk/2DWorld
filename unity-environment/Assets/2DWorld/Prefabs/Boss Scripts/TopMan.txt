@@ -1,0 +1,130 @@
+.TopMan{
+    .init{
+        Set("lifePoint", 100);
+		Set("attack", 10);
+		Set("isAttacker", true);
+		Set("isDefender", true);
+		Set("isFlipper", false);
+		Set("isFlippable", false);
+		Set("isProjectile", false);
+		Set("group", "Enemy");
+		Set("x", 7);
+		Set("y", -4.41);
+		Set("width", 1);
+		Set("height", 1);
+		Set("horizontalDirection", 1);
+		Set("verticalDirection", 1);
+		Set("isHittableByProjectile", false);
+    }
+    .throw{
+        .seq1{
+            Spawn("Top1", 0.82, 0.5, 0.64, 0.64, "TowardPlayer");
+            Spawn("Top2", 0.82, 0.5, 0.64, 0.64, "TowardPlayer");
+            Spawn("Top3", 0.82, 0.5, 0.64, 0.64, "TowardPlayer");
+            Wait(1200);
+            ToState("decision");
+        }
+    }
+    .decision{
+        .seq1{
+            if (GetX("Self") > 0) {
+                ToState("leftSpin");
+            }
+            ToState("rightSpin");
+        }
+    }
+    .leftSpin{
+        .seq1{
+            Set("isInvulnerable", true);
+            Move(-10, 0, IsX(-7, "Self"));
+            Set("isInvulnerable", false);
+            ToState("throw");
+        }
+    }
+    .rightSpin{
+        .seq1{
+            Set("isInvulnerable", true);
+            Move(10, 0, IsX(7, "Self"));
+            Set("isInvulnerable", false);
+            ToState("throw");
+        }
+    }
+}
+.Top1{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            Move(3, 8, Times(30, true));
+            Wait(200);
+            ToState("state2");
+        }
+    }
+    .state2{
+        .seq1{
+            MoveToward(GetX("Player"), GetY("Player"), 10, false);
+        }
+    }
+}
+.Top2{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            Move(7, 10, Times(30, true));
+            Wait(200);
+            ToState("state2");
+        }
+    }
+    .state2{
+        .seq1{
+            MoveToward(GetX("Player"), GetY("Player"), 10, false);
+        }
+    }
+}
+.Top3{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            Move(11, 12, Times(30, true));
+            Wait(200);
+            ToState("state2");
+        }
+    }
+    .state2{
+        .seq1{
+            MoveToward(GetX("Player"), GetY("Player"), 10, false);
+        }
+    }
+}

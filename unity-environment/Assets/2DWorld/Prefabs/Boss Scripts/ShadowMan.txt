@@ -1,0 +1,105 @@
+.ShadowMan{
+    .init{
+        Set("lifePoint", 150);
+		Set("attack", 10);
+		Set("isAttacker", true);
+		Set("isDefender", true);
+		Set("isFlipper", false);
+		Set("isFlippable", false);
+		Set("isProjectile", false);
+		Set("group", "Enemy");
+		Set("x", 7);
+		Set("y", -4.41);
+		Set("width", 1);
+		Set("height", 1);
+		Set("horizontalDirection", 1);
+		Set("verticalDirection", 1);
+		Set("isHittableByProjectile", false);
+    }
+    .decision1{
+        .seq1{
+            ToState(Random("highJump", "moderateJump", "lowJump"));
+        }
+    }
+    .decision2{
+        .seq1{
+            ToState(Random("highJump", "moderateJump", "lowJump", "throw", "slide"));
+        }
+    }
+    .throw{
+        .seq1{
+            Wait(400);
+            Spawn("Shuriken1", 0.9, 0.25, 0.8, 0.8, "TowardPlayer");
+            Spawn("Shuriken2", 0.9, 0.5, 0.8, 0.8, "TowardPlayer");
+            ToState("decision1");
+        }
+    }
+    .slide{
+        .seq1{
+            FlipTowardPlayer();
+            Set("attack", 20);
+            Move(12, 0, IsX(GetX("Player"), "Self"));
+            Set("attack", 10);
+            ToState("decision1");
+        }
+    }
+    .highJump{
+        .seq1{
+            FlipTowardPlayer();
+            Move(1, Linear(-9.81 * 5, 24), IsCollidedWith("Horizontal Environment"));
+            ToState("decision2");
+        }
+    }
+    .moderateJump{
+        .seq1{
+            FlipTowardPlayer();
+            Move(1, Linear(-9.81 * 4, 18), IsCollidedWith("Horizontal Environment"));
+            ToState("decision2");
+        }
+    }
+    .lowJump{
+        .seq1{
+            FlipTowardPlayer();
+            Move(1, Linear(-9.81 * 3, 12), IsCollidedWith("Horizontal Environment"));
+            ToState("decision2");
+        }
+    }
+}
+.Shuriken1{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            Move(15, 0, false);
+        }
+    }
+}
+.Shuriken2{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+    }
+    .state1{
+        .seq1{
+            Move(15, 15, false);
+        }
+    }
+}

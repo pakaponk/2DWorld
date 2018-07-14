@@ -1,0 +1,109 @@
+.IceMan{
+	.init{
+		Set("lifePoint", 100);
+		Set("attack", 10);
+		Set("isAttacker", true);
+		Set("isDefender", true);
+		Set("isFlipper", false);
+		Set("isFlippable", true);
+		Set("isProjectile", false);
+		Set("group", "Enemy");
+		Set("x", 5.76);
+		Set("y", -4.42);
+		Set("width", 0.64);
+		Set("height", 0.64);
+		Set("horizontalDirection", 1);
+		Set("verticalDirection", 1);
+		Set("isHittableByProjectile", false);
+	}
+	.state1{
+		.seq0{
+			Move(2.5, 0, IsX(-2, "Self"));
+			
+			Move(0, 3, IsY(-1.42, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+            Move(0, -3, IsY(-2.92, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+            Move(0, -3, IsY(-4.42, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Wait(800);
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Move(0, 3, IsY(-2.92, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Move(0, 3, IsY(-1, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Move(0, -3, IsY(-4.42, "Self"));
+
+			FlipX();
+
+			Move(2.5, 0, IsX(1, "Self"));
+			
+			Move(0, 3, IsY(-1.42, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+            Move(0, -3, IsY(-2.92, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+            Move(0, -3, IsY(-4.42, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Wait(800);
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Move(0, 3, IsY(-2.92, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Move(0, 3, IsY(-1, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Move(0, -3, IsY(-4.42, "Self"));
+
+			Move(2.5, 0, IsX(4, "Self"));
+			
+			Move(0, 3, IsY(-1.42, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+            Move(0, -3, IsY(-2.92, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+            Move(0, -3, IsY(-4.42, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Wait(800);
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Move(0, 3, IsY(-2.92, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Move(0, 3, IsY(-1, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Move(0, -3, IsY(-4.42, "Self"));
+			
+			FlipX();
+
+			Move(2.5, 0, IsX(1, "Self"));
+			
+			Move(0, 3, IsY(-1.42, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+            Move(0, -3, IsY(-2.92, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+            Move(0, -3, IsY(-4.42, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Wait(800);
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Move(0, 3, IsY(-2.92, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Move(0, 3, IsY(-1, "Self"));
+			Spawn("IceBuster", 0.52, 0, 0.30, 0.30, "TowardPlayer");
+			Move(0, -3, IsY(-4.42, "Self"));
+		}
+	}
+}
+.IceBuster{
+	.init{
+		Set("lifePoint", 10);
+		Set("attack", 30);
+		Set("isAttacker", true);
+		Set("isDefender", false);
+		Set("isFlipper", false);
+		Set("isFlippable", false);
+		Set("isProjectile", true);
+		Set("group", "Enemy");
+		Set("isHittableByProjectile", false);
+		Set("isHittableByEnvironment", true);
+	}
+	.state1{
+		.seq0{
+			Move(4,0,false);
+		}
+	}
+}

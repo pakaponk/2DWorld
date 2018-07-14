@@ -1,0 +1,102 @@
+.BombMan{
+    .init{
+        Set("lifePoint", 100);
+		Set("attack", 10);
+		Set("isAttacker", true);
+		Set("isDefender", true);
+		Set("isFlipper", false);
+		Set("isFlippable", false);
+		Set("isProjectile", false);
+		Set("group", "Enemy");
+		Set("x", 5.76);
+		Set("y", -4.42);
+		Set("width", 1);
+		Set("height", 1);
+		Set("horizontalDirection", 1);
+		Set("verticalDirection", 1);
+		Set("isHittableByProjectile", false);
+    }
+    .decision{
+        .seq1{
+            ToState(Random("attackJump", Random("jumpToward", "jumpBackward")));
+        }
+    }
+    .attackJump{
+        .seq1{
+            FlipTowardPlayer();
+            Move(GetCenterDistance("Player", "Self"), Linear(-9.81 * 5, 24), IsCollidedWith("Horizontal Environment"));
+            Wait(100);
+            ToState(Random("jumpToward", "jumpBackward"));
+        }
+    }
+    .jumpToward{
+        .seq1{
+            FlipTowardPlayer();
+            Move(6, Linear(-9.81 * 5, 18), IsCollidedWith("Horizontal Environment"));
+            Wait(400);
+            ToState("throwBomb");
+        }
+    }
+    .jumpBackward{
+        .seq1{
+            FlipTowardPlayer();
+            Move(-6, Linear(-9.81 * 5, 18), IsCollidedWith("Horizontal Environment"));
+            Wait(400);
+            ToState("throwBomb");
+        }
+    }
+    .throwBomb{
+        .seq1{
+            Spawn("Bomb", 0.52, 0.32, 0.64, 0.64, "TowardPlayer");
+            Wait(1000);
+            Spawn("Bomb", 0.52, 0.32, 0.64, 0.64, "TowardPlayer");
+            Wait(1000);
+            Spawn("Bomb", 0.52, 0.32, 0.64, 0.64, "TowardPlayer");
+            Wait(1000);
+            ToState("decision");
+        }
+    }
+}
+.Bomb{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 10);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", true);
+        Set("safeEnvironmentList", "Horizontal Environment", "Vertical Environment");
+    }
+    .state1{
+        .seq1{
+            Move(GetCenterDistance("Player", "Self"), Linear(-9.81 * 3, 16), IsCollidedWith("Horizontal Environment"));
+            Spawn("Explosion", 0, 0, 1.28, 1.28, "Default");
+            Destroy();
+        }
+    }
+}
+.Explosion{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", false);
+        Set("safeEnvironmentList", "Horizontal Environment", "Vertical Environment");
+    }
+    .state1{
+        .seq1{
+            Wait(400);
+            Destroy();
+        }
+    }
+}

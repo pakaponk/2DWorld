@@ -1,0 +1,125 @@
+.HeatMan{
+    .init{
+        Set("lifePoint", 100);
+		Set("attack", 10);
+		Set("isAttacker", true);
+		Set("isDefender", true);
+		Set("isFlipper", false);
+		Set("isFlippable", false);
+		Set("isProjectile", false);
+		Set("group", "Enemy");
+		Set("x", 5.76);
+		Set("y", -4.41);
+		Set("width", 1);
+		Set("height", 1);
+		Set("horizontalDirection", 1);
+		Set("verticalDirection", 1);
+		Set("isHittableByProjectile", false);
+    }
+    .state1{
+        .seq1{
+            Spawn("Fire1", 0.7, 0.5, 0.32, 0.32, "TowardPlayer");
+            Spawn("Fire2", 0.7, 0.5, 0.32, 0.32, "TowardPlayer");
+            Spawn("Fire3", 0.7, 0.5, 0.32, 0.32, "TowardPlayer");
+            Wait(2000);
+            ToState("state2");
+        }
+    }
+    .state2{
+        .seq1{
+            Set("isInvulnerable", true);
+            Wait(1500);
+            FlipTowardPlayer();
+            Move(10, 0, IsX(GetX("Player"), "Self"));
+            Set("isInvulnerable", false);
+            ToState("state1");
+        }
+    }
+}
+.Fire1{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", true);
+        Set("safeEnvironmentList", "Horizontal Environment", "Vertical Environment");
+    }
+    .state1{
+        .seq1{
+            Move(GetCenterDistance("Player", "Self") / 0.62 - 2 / 0.62, Linear(-9.81 * 3, 8), IsCollidedWith("Horizontal Environment"));
+            Spawn("FireWall", 0, 0.84, 0.32, 2, "Default");
+            Destroy();
+        }
+    }
+}
+.Fire2{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", true);
+        Set("safeEnvironmentList", "Horizontal Environment", "Vertical Environment");
+    }
+    .state1{
+        .seq1{
+            Move(GetCenterDistance("Player", "Self") / 0.86, Linear(-9.81 * 3, 12), IsCollidedWith("Horizontal Environment"));
+            Spawn("FireWall", 0, 0.84, 0.32, 2, "Default");
+            Destroy();
+        }
+    }
+}
+.Fire3{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", true);
+        Set("safeEnvironmentList", "Horizontal Environment", "Vertical Environment");
+    }
+    .state1{
+        .seq1{
+            Move(GetCenterDistance("Player", "Self") / 1.1 + 2 / 1.1, Linear(-9.81 * 3, 16), IsCollidedWith("Horizontal Environment"));
+            Spawn("FireWall", 0, 0.84, 0.32, 2, "Default");
+            Destroy();
+        }
+    }
+}
+.FireWall{
+    .init{
+        Set("lifePoint", 10);
+        Set("attack", 15);
+        Set("isAttacker", true);
+        Set("isDefender", false);
+        Set("isFlipper, false");
+        Set("isFlippable", false);
+        Set("isProjectile", true);
+        Set("group", "Enemy");
+        Set("isHittableByProjectile", false);
+        Set("isHittableByEnvironment", true);
+        Set("safeEnvironmentList", "Horizontal Environment", "Vertical Environment");
+    }
+    .state1{
+        .seq1{
+            Wait(800);
+            Destroy();
+        }
+    }
+}
