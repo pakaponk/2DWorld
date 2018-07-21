@@ -82,7 +82,7 @@ public class ADLAgent : ADLBaseAgent {
 	protected override void OnDestroy() {
 		base.OnDestroy();
 		if (this.group.Equals(Group.Enemy) && !this.isProjectile && !this.IsAlive()) {
-			GameInformation.instance?.End();
+			GameRecorder.instance?.End();
 		}
 	}
 
