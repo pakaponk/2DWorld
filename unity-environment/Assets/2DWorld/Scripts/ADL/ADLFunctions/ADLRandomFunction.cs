@@ -9,7 +9,7 @@ public class ADLRandomFunction: ADLFunction{
             case 0:
                 return UnityEngine.Random.Range(0.00f, 1.00f);
             default:
-                System.Random rnd = GameInformation.instance.random;
+                System.Random rnd = GameRecorder.instance.random;
                 return this.parameters[rnd.Next(totalParams)].ProcessRPN();
         }
     }

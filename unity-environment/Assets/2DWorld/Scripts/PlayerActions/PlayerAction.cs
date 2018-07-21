@@ -20,10 +20,6 @@ public abstract class PlayerAction
 
 	public static PlayerAction CreatePlayerAction(ActionName name, PlayerController player, string key) {
 		switch (name) {
-			case ActionName.MoveLeft:
-				return new PlayerMoveRightAction(player, key);
-			case ActionName.MoveRight:
-				return new PlayerMoveLeftAction(player, key);
 			case ActionName.HorizontalMove:
 				return new PlayerHorizontalMoveAction(player, key);
 			case ActionName.Jump:

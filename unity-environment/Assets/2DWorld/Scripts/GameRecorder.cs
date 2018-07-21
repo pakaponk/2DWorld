@@ -8,8 +8,8 @@ using Firebase;
 using Firebase.Storage;
 
 [Serializable]
-public class GameInformation : MonoBehaviour {
-	public static GameInformation instance;
+public class GameRecorder : MonoBehaviour {
+	public static GameRecorder instance;
 	
 	//Recorded Info
 	public int seed;
@@ -56,7 +56,7 @@ public class GameInformation : MonoBehaviour {
 		this.state = GameState.Running;
 
 		UnityEngine.Random.InitState(this.seed);
-		this.random = new System.Random(GameInformation.instance.seed);
+		this.random = new System.Random(GameRecorder.instance.seed);
 
 		alertText.gameObject.SetActive(false);
 	}

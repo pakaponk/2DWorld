@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System;
@@ -85,10 +85,10 @@ public class PlayerController : ADLBaseAgent {
 		//button2Action.Perform();
 
 		UpdateAnimation();
-
-		if (GameInformation.instance != null && !GameInformation.instance.isControlledByPlayer) {
-			PlayerInput input = GameInformation.instance.GetCurrentPlayerInput();
-			GameInformation.instance.RemoveCurrentPlayerInput();
+		
+		if (GameRecorder.instance != null && !GameRecorder.instance.isControlledByPlayer) {
+			PlayerInput input = GameRecorder.instance.GetCurrentPlayerInput();
+			GameRecorder.instance.RemoveCurrentPlayerInput();
 		}
 	}
 
@@ -96,15 +96,8 @@ public class PlayerController : ADLBaseAgent {
 		base.OnDestroy();
 		
 		if (!this.IsAlive()) {
-			GameInformation.instance?.End();
+			GameRecorder.instance?.End();
 		}
-	}
-
-	/// <summary>
-	/// This method is deprecated. All references to this method is MoveLeft and MoveRight which is deprecated as well.
-	/// </summary>
-	public Rigidbody2D getRigidBody2D(){
-		return this.rb2d;
 	}
 
 	private void UpdateAnimation() {

@@ -48,10 +48,10 @@ public class PlayerShootProjectileAction : PlayerAction
 	}  
 
 	private bool IsFireButtonDown() {
-		if (GameInformation.instance.isControlledByPlayer) {
+		if (GameRecorder.instance.isControlledByPlayer) {
             return Input.GetButtonDown(key);
         } else {
-            return GameInformation.instance.GetCurrentPlayerInput().isFireButtonDown;
+            return GameRecorder.instance.GetCurrentPlayerInput().isFireButtonDown;
         }
 	}
 

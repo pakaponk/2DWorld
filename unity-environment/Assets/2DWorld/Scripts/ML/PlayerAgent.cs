@@ -7,6 +7,11 @@ using MLAgents;
 
 public class PlayerAgent : Agent {
 
+	private const float X_RANGE = 8.42f;
+	private const float Y_RANGE = 4.14f;
+	private const float MAX_X_DISTANCE = X_RANGE * 2;
+	private const float MAX_Y_DISTANCE = Y_RANGE * 2;
+
 	private PlayerController Player;
     private RayPerception rayPerception;
 
@@ -44,17 +49,29 @@ public class PlayerAgent : Agent {
 	}
 
 	public override void CollectObservations() {
-		// Vector2 relaivePosition = Enemy.transform.position - this.player.transform.position;
+		Vector2 playerPosition = this.Player.transform.position;
+		Vector2 enemyPosition = this.Player.transform.position;
+		Vector2 relativeDistance = enemyPosition - playerPosition;
 
-		// //Relative Position to Enemy
-		// AddVectorObs(relaivePosition.x / 8.46f);
-		// AddVectorObs(relaivePosition.y / 4.14f);
+		// Player Position
+		AddVectorObs(playerPosition.x / X_RANGE);
+		AddVectorObs(playerPosition.y / Y_RANGE);
+		// Enemy Position
+		AddVectorObs(enemyPosition.x / X_RANGE);
+		AddVectorObs(enemyPosition.y / Y_RANGE);
 
-		// //Player Velocity
-		// AddVectorObs(this.player.velocity.x / 5f);
-		// AddVectorObs(this.player.velocity.y / 12f);
+		// Relative Distance to Enemy
+		AddVectorObs(Math.Abs(relativeDistance.x) / MAX_X_DISTANCE);
+		AddVectorObs(Math.Abs(relativeDistance.y) / MAX_Y_DISTANCE);
 
-		//Player & Enemy Life
+		// Player Velocity
+		AddVectorObs(this.Player.velocity.x / 5f);
+		AddVectorObs(this.Player.velocity.y / 12f);
+		// Enemy Velocity
+		AddVectorObs(this.Enemy.velocity.x / 20f);
+		AddVectorObs(this.Enemy.velocity.y / 20f);	
+
+		// Player & Enemy Life
 		AddVectorObs(this.Player.lifePoint / this.playerMaxLifePoint);
 		AddVectorObs(this.Enemy.lifePoint / this.enemyMaxLifePoint);
 	}

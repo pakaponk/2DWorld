@@ -9,8 +9,8 @@ public class PlayerHorizontalMoveAction : PlayerAction
     //For Kinematic RigidBody
     public override void Perform() {
         float inputValue;
-        if (!GameInformation.instance.isControlledByPlayer) {
-            inputValue = GameInformation.instance.GetCurrentPlayerInput().horizontalAxis;
+        if (!GameRecorder.instance.isControlledByPlayer) {
+            inputValue = GameRecorder.instance.GetCurrentPlayerInput().horizontalAxis;
         } else {
             inputValue = Input.GetAxis(key);
         }

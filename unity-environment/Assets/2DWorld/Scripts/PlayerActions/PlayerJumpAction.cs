@@ -41,18 +41,18 @@ public class PlayerJumpAction : PlayerAction
 	}
 
 	private bool IsJumpButtonDown() {
-		if (GameInformation.instance.isControlledByPlayer) {
+		if (GameRecorder.instance.isControlledByPlayer) {
 			return Input.GetButtonDown(key);
 		} else {
-			return GameInformation.instance.GetCurrentPlayerInput().isJumpButtonDown;
+			return GameRecorder.instance.GetCurrentPlayerInput().isJumpButtonDown;
 		}
 	}
 
 	private bool IsJumpButtonUp() {
-		if (GameInformation.instance.isControlledByPlayer) {
+		if (GameRecorder.instance.isControlledByPlayer) {
 			return Input.GetButtonUp(key); 
 		} else {
-			return GameInformation.instance.GetCurrentPlayerInput().isJumpButtonUp;
+			return GameRecorder.instance.GetCurrentPlayerInput().isJumpButtonUp;
 		}
 	}
 

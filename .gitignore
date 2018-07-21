@@ -80,3 +80,9 @@ python/summaries
 
 # My Preferenece
 /unity-environment/[Rr]ecords/
+
+# Firebase Configuration Files
+/unity-environment/Assets/google-services.json
+/unity-environment/Assets/google-services.json.meta
+/unity-environment/Assets/GoogleService-Info.plist
+/unity-environment/Assets/GoogleService-Info.plist.meta
