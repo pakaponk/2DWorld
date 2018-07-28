@@ -48,14 +48,13 @@ public class ADLSpawnAction : ADLAction{
         subAgent.agentScript = subAgentScript;
         subAgent.agentScript.subAgentScripts = agent.agentScript.subAgentScripts;
 
-        Transform transform = projectile.GetComponent<Transform>();
         Vector2 colliderSize = projectile.GetComponent<BoxCollider2D>().size;
-        transform.position = agent.transform.position;
+        projectile.transform.localPosition = agent.transform.localPosition;
         
         if (spawnDirection.Equals("TowardPlayer")) {
             try {
                 ADLBaseAgent player = ADLBaseAgent.FindAgent("Player");
-                if (player.transform.position.x > agent.transform.position.x) {
+                if (player.transform.localPosition.x > agent.transform.localPosition.x) {
                     SetProjectilePositionAndDirection(subAgent, ADLBaseAgent.Direction.Normal);
                 } else {
                     SetProjectilePositionAndDirection(subAgent, ADLBaseAgent.Direction.Inverse);
@@ -67,17 +66,17 @@ public class ADLSpawnAction : ADLAction{
         } else {
             SetProjectilePositionAndDirection(subAgent, agent.horizonDirection);
         }
-        transform.localScale = new Vector3(this.getWidth() / colliderSize.x, this.getHeight() / colliderSize.y);
+        projectile.transform.localScale = new Vector3(this.getWidth() / colliderSize.x, this.getHeight() / colliderSize.y);
 
         subAgent.Start();
     }
 
     private void SetProjectilePositionAndDirection(ADLAgent projectile, ADLBaseAgent.Direction direction) {
         if (direction.Equals(ADLBaseAgent.Direction.Normal)) {
-            projectile.transform.position += new Vector3(this.getX(), this.getY(), 0);
+            projectile.transform.localPosition += new Vector3(this.getX(), this.getY(), 0);
             projectile.horizonDirection = ADLBaseAgent.Direction.Normal;
         } else {
-            projectile.transform.position += new Vector3(-this.getX(), this.getY(), 0);
+            projectile.transform.localPosition += new Vector3(-this.getX(), this.getY(), 0);
             projectile.horizonDirection = ADLBaseAgent.Direction.Inverse;
         }
     }

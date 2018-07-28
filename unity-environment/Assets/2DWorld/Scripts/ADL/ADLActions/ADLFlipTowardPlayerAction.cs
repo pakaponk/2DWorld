@@ -11,7 +11,7 @@ public class ADLFlipTowardPlayerAction : ADLAction
     {
         ADLBaseAgent player = ADLBaseAgent.FindAgent("Player");
         try {
-            if (player.transform.position.x > agent.transform.position.x) {
+            if (player.transform.localPosition.x > agent.transform.localPosition.x) {
                 agent.horizonDirection = ADLBaseAgent.Direction.Normal;
             } else {
                 agent.horizonDirection = ADLBaseAgent.Direction.Inverse;

@@ -18,10 +18,10 @@ public class ADLVarSetAction : ADLAction{
 		switch(this.GetPropertyName())
 		{
 			case "x":
-				agent.transform.position = new Vector3((float) this.GetValue(), agent.transform.position.y, agent.transform.position.z);
+				agent.transform.localPosition = new Vector3((float) this.GetValue(), agent.transform.localPosition.y, agent.transform.localPosition.z);
 				break;
 			case "y":
-				agent.transform.position = new Vector3(agent.transform.position.x, (float) this.GetValue(), agent.transform.position.z);
+				agent.transform.localPosition = new Vector3(agent.transform.localPosition.x, (float) this.GetValue(), agent.transform.localPosition.z);
 				break;
 			case "width": {
 				Vector2 colliderSize = agent.GetComponent<BoxCollider2D>().size;

@@ -188,8 +188,8 @@ public class GameRecorder : MonoBehaviour {
 		public string currentState;
 		
 		public Entity(ADLBaseAgent agent) {
-			this.x = agent.transform.position.x;
-			this.y = agent.transform.position.y;
+			this.x = agent.transform.localPosition.x;
+			this.y = agent.transform.localPosition.y;
 			
 			if (agent is ADLEnvironment) {
 				this.width = 0;

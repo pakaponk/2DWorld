@@ -63,11 +63,11 @@ public class PlayerShootProjectileAction : PlayerAction
 
 			float bulletX;
 			if (player.horizonDirection < 0) {
-				bulletX = player.transform.position.x - ((playerCollider2D.size.x * player.transform.localScale.x / 2.0f) + (bulletCollider2D.size.x * player.bullet.transform.localScale.x / 2.0f) + 0.02f); 
+				bulletX = player.transform.localPosition.x - ((playerCollider2D.size.x * player.transform.localScale.x / 2.0f) + (bulletCollider2D.size.x * player.bullet.transform.localScale.x / 2.0f) + 0.02f); 
 			} else {
-				bulletX = player.transform.position.x + ((playerCollider2D.size.x * player.transform.localScale.x / 2.0f) + (bulletCollider2D.size.x * player.bullet.transform.localScale.x / 2.0f) + 0.02f);
+				bulletX = player.transform.localPosition.x + ((playerCollider2D.size.x * player.transform.localScale.x / 2.0f) + (bulletCollider2D.size.x * player.bullet.transform.localScale.x / 2.0f) + 0.02f);
 			}
-			player.bullet.transform.position = new Vector2(bulletX ,player.transform.position.y);
+			player.bullet.transform.localPosition = new Vector2(bulletX ,player.transform.localPosition.y);
 			
 			GameObject bullet = Object.Instantiate(player.bullet, player.transform.parent) as GameObject;
 			bullet.GetComponent<Bullet>().horizonDirection = player.horizonDirection;

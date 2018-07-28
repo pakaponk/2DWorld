@@ -21,7 +21,7 @@ public class ADLGetCenterDistanceFunction: ADLFunction {
             if (ADLAgent.currentUpdatingAgent.simulationState.singleQueryProperties[ADLAction.performingAction].ContainsKey(this)) {
                 distance = (float) ADLAgent.currentUpdatingAgent.simulationState.singleQueryProperties[ADLAction.performingAction][this];
             } else {
-                distance = Math.Abs(firstAgent.GetComponent<Rigidbody2D>().transform.position.x - secondAgent.GetComponent<Rigidbody2D>().transform.position.x);
+                distance = Math.Abs(firstAgent.GetComponent<Rigidbody2D>().transform.localPosition.x - secondAgent.GetComponent<Rigidbody2D>().transform.localPosition.x);
                 ADLAgent.currentUpdatingAgent.simulationState.singleQueryProperties[ADLAction.performingAction].Add(this, distance);
             }
             return distance;
