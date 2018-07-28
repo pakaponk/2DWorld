@@ -80,6 +80,7 @@ python/summaries
 
 # My Preferenece
 /unity-environment/[Rr]ecords/
+/unity-environment/Assets/2DWorld/Scripts/ML/PlayerModels
 
 # Firebase Configuration Files
 /unity-environment/Assets/google-services.json
