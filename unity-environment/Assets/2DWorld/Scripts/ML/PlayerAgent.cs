@@ -60,6 +60,10 @@ public class PlayerAgent : Agent {
 		this.prevEnemyLifePoint = this.Enemy.lifePoint;
 	}
 
+	void Update() {
+		RequestDecision();
+	}
+
 	public override void CollectObservations() {
 		Vector2 playerPosition = this.Player.transform.localPosition;
 		Vector2 enemyPosition = this.Player.transform.localPosition;
@@ -103,13 +107,19 @@ public class PlayerAgent : Agent {
 		this.jumpAction.Perform(playerInput);
 		this.shootAction.Perform(playerInput);
 
+		CollectRewards();
+
 		this.prevJumpValue = agentInput.isJumpPressed;
 		this.prevShootValue = agentInput.isShootPressed;
 
+		this.prevPlayerLifePoint = this.Player.lifePoint;
+		this.prevEnemyLifePoint = this.Enemy.lifePoint;
+	}
+
+	protected virtual void CollectRewards() {
 		// Reward when the environment end
 		if (Enemy.lifePoint <= 0) {
 			AddReward(1f);
-			//Debug.Log("Trigger Enemy Reset: " + Enemy.lifePoint);
 			Done();
 		}
 		else if (Player.lifePoint <= 0) {
@@ -117,25 +127,17 @@ public class PlayerAgent : Agent {
 			Done();
 		}
 		
-		// Reward for each step
-		AddReward(-0.0001f);
-
 		// Reward when got damaged
 		if (this.prevPlayerLifePoint > this.Player.lifePoint) {
-			AddReward(-((this.prevPlayerLifePoint - this.Player.lifePoint) / this.playerMaxLifePoint));
+			float damagePoint = this.prevPlayerLifePoint - this.Player.lifePoint;
+			AddReward((-damagePoint / this.playerMaxLifePoint) * 0.5f);
 		}
 
 		// Reward when able to damage the enemy
-		if (this.prevEnemyLifePoint > this.Enemy.lifePoint) {
-			AddReward(((this.prevEnemyLifePoint - this.Enemy.lifePoint) / this.enemyMaxLifePoint) * 0.5f);
-		}
-
-		this.prevPlayerLifePoint = this.Player.lifePoint;
-		this.prevEnemyLifePoint = this.Enemy.lifePoint;
-	}
-
-	void Update() {
-		RequestDecision();
+		// if (this.prevEnemyLifePoint > this.Enemy.lifePoint) {
+		// 	float damagePoint = this.prevEnemyLifePoint - this.Enemy.lifePoint;
+		// 	AddReward((damagePoint / this.enemyMaxLifePoint) * 0.5f);
+		// }
 	}
 
 	public override void AgentReset() {
