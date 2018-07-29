@@ -259,7 +259,7 @@ public class PlayerAgent : Agent {
 
 		return new AgentInput(axis, isJumpPressed, isShootPressed);
 	}
-	private AgentInput ConvertContinuosVectorActionToAgentInput(float[] vectorAction) {
+	private AgentInput ConvertContinuousVectorActionToAgentInput(float[] vectorAction) {
 		float axis =  Mathf.Clamp(vectorAction[0], -1, 1);
 		bool isJumpPressed = Mathf.Clamp(vectorAction[1], -1, 1) > 0;
 		bool isShootPressed = Mathf.Clamp(vectorAction[2], -1, 1) > 0;
