@@ -162,7 +162,7 @@ public class PlayerAgent : Agent {
 	}
 
 	private void ResetPlayer() {
-		this.Player.transform.localPosition = new Vector3(-6.42f, 0, 0);
+		this.Player.transform.localPosition = FindObjectOfType<BossFightAcademy>().RandomInitialPosition();
 		this.Player.lifePoint = this.playerMaxLifePoint;
 		this.Player.agentLifePointText.text = "LP: " + this.Player.lifePoint;
 		this.Player.isGrounded = false;
