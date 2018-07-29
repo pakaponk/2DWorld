@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +6,18 @@ using UnityEngine.UI;
 using MLAgents;
 
 public class PlayerAgent : Agent {
+
+	protected struct AgentInput {
+		public float axis;
+		public bool isJumpPressed;
+		public bool isShootPressed;
+
+		public AgentInput(float axis, bool isJumpPressed, bool isShootPressed) {
+			this.axis = axis;
+			this.isJumpPressed = isJumpPressed;
+			this.isShootPressed = isShootPressed;
+		}
+	}
 
 	private const float X_RANGE = 8.42f;
 	private const float Y_RANGE = 4.14f;
@@ -77,89 +89,22 @@ public class PlayerAgent : Agent {
 	}
 
 	public override void AgentAction(float[] vectorAction, string textAction) {
+		AgentInput agentInput = this.ConvertDiscreteVectorActionToAgentInput(vectorAction);
 
-		// Discrete Actions
-		float axis;
-		bool isJumpPressed;
-		bool isShootPressed;
-		int action = Mathf.FloorToInt(vectorAction[0]);
-		switch (action) {
-			case 1: //000
-				axis = -1f;
-				isJumpPressed = false;
-				isShootPressed = false;
-				break;
-			case 2: //001
-				axis = -1f;
-				isJumpPressed = false;
-				isShootPressed = true;
-				break;
-			case 3: //010
-				axis = -1f;
-				isJumpPressed = true;
-				isShootPressed = false;
-				break;
-			case 4: //011
-				axis = -1f;
-				isJumpPressed = true;
-				isShootPressed = true;
-				break;
-			case 5: //100
-				axis = 0f;
-				isJumpPressed = false;
-				isShootPressed = false;
-				break;
-			case 6: //101
-				axis = 0f;
-				isJumpPressed = false;
-				isShootPressed = true;
-				break;
-			case 7: //110
-				axis = 0f;
-				isJumpPressed = true;
-				isShootPressed = false;
-				break;
-			case 8: //111
-				axis = 0f;
-				isJumpPressed = true;
-				isShootPressed = true;
-				break;
-			case 9: //200
-				axis = 1f;
-				isJumpPressed = false;
-				isShootPressed = false;
-				break;
-			case 10: //201
-				axis = 1f;
-				isJumpPressed = false;
-				isShootPressed = true;
-				break;
-			case 11: //210
-				axis = 1f;
-				isJumpPressed = true;
-				isShootPressed = false;
-				break;
-			default: //211
-				axis = 1f;
-				isJumpPressed = true;
-				isShootPressed = true;
-				break;
-		}
+		PlayerInput playerInput = new PlayerInput(
+			this.Player, 
+			agentInput.axis, 
+			!prevShootValue && agentInput.isShootPressed, 
+			!prevJumpValue && agentInput.isJumpPressed, 
+			prevJumpValue && !agentInput.isJumpPressed
+		);
 		
-		// Continuous Actions
-		/* float axis =  Mathf.Clamp(vectorAction[0], -1, 1);
-		bool isJumpPressed = Mathf.Clamp(vectorAction[1], -1, 1) > 0;
-		bool isShootPressed = Mathf.Clamp(vectorAction[2], -1, 1) > 0; */
+		this.horizontalAction.Perform(playerInput);
+		this.jumpAction.Perform(playerInput);
+		this.shootAction.Perform(playerInput);
 
-		//PlayerAction.ActionName actionName = (PlayerAction.ActionName) Enum.ToObject(typeof(PlayerAction.ActionName), selectedAction);
-		PlayerInput input = new PlayerInput(this.Player, axis, !prevShootValue && isShootPressed, !prevJumpValue && isJumpPressed, prevJumpValue && !isJumpPressed);
-
-		this.horizontalAction.Perform(input);
-		this.jumpAction.Perform(input);
-		this.shootAction.Perform(input);
-
-		this.prevJumpValue = isJumpPressed;
-		this.prevShootValue = isShootPressed;
+		this.prevJumpValue = agentInput.isJumpPressed;
+		this.prevShootValue = agentInput.isShootPressed;
 
 		// Reward when the environment end
 		if (Enemy.lifePoint <= 0) {
@@ -240,5 +185,85 @@ public class PlayerAgent : Agent {
 			this.Enemy = enemy.GetComponent<ADLAgent>();
 			this.Enemy.agentLifePointText = enemyLifePointText;
 		}
+	}
+
+	private AgentInput ConvertDiscreteVectorActionToAgentInput(float[] vectorAction) {
+		float axis;
+		bool isJumpPressed;
+		bool isShootPressed;
+		
+		int action = Mathf.FloorToInt(vectorAction[0]);
+		
+		switch (action) {
+			case 1: //000
+				axis = -1f;
+				isJumpPressed = false;
+				isShootPressed = false;
+				break;
+			case 2: //001
+				axis = -1f;
+				isJumpPressed = false;
+				isShootPressed = true;
+				break;
+			case 3: //010
+				axis = -1f;
+				isJumpPressed = true;
+				isShootPressed = false;
+				break;
+			case 4: //011
+				axis = -1f;
+				isJumpPressed = true;
+				isShootPressed = true;
+				break;
+			case 5: //100
+				axis = 0f;
+				isJumpPressed = false;
+				isShootPressed = false;
+				break;
+			case 6: //101
+				axis = 0f;
+				isJumpPressed = false;
+				isShootPressed = true;
+				break;
+			case 7: //110
+				axis = 0f;
+				isJumpPressed = true;
+				isShootPressed = false;
+				break;
+			case 8: //111
+				axis = 0f;
+				isJumpPressed = true;
+				isShootPressed = true;
+				break;
+			case 9: //200
+				axis = 1f;
+				isJumpPressed = false;
+				isShootPressed = false;
+				break;
+			case 10: //201
+				axis = 1f;
+				isJumpPressed = false;
+				isShootPressed = true;
+				break;
+			case 11: //210
+				axis = 1f;
+				isJumpPressed = true;
+				isShootPressed = false;
+				break;
+			default: //211
+				axis = 1f;
+				isJumpPressed = true;
+				isShootPressed = true;
+				break;
+		}
+
+		return new AgentInput(axis, isJumpPressed, isShootPressed);
+	}
+	private AgentInput ConvertContinuosVectorActionToAgentInput(float[] vectorAction) {
+		float axis =  Mathf.Clamp(vectorAction[0], -1, 1);
+		bool isJumpPressed = Mathf.Clamp(vectorAction[1], -1, 1) > 0;
+		bool isShootPressed = Mathf.Clamp(vectorAction[2], -1, 1) > 0;
+
+		return new AgentInput(axis, isJumpPressed, isShootPressed);
 	}
 }
