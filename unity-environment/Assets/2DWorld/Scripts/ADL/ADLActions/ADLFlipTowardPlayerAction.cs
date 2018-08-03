@@ -9,7 +9,7 @@ public class ADLFlipTowardPlayerAction : ADLAction
 
     protected override void Perform(ADLAgent agent)
     {
-        ADLBaseAgent player = ADLBaseAgent.FindAgent("Player");
+        ADLBaseAgent player = ADLBaseAgent.FindAgent("Player", agent.transform.parent);
         try {
             if (player.transform.localPosition.x > agent.transform.localPosition.x) {
                 agent.horizonDirection = ADLBaseAgent.Direction.Normal;

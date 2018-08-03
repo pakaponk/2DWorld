@@ -7,7 +7,7 @@ public class ADLGetYFunction: ADLFunction {
 
     private ADLBaseAgent GetAgent() {
         string agentName = this.GetStringParameter(0);
-        return ADLBaseAgent.FindAgent(agentName);
+        return ADLBaseAgent.FindAgent(agentName, ADLAgent.currentUpdatingAgent.transform.parent);
     }
 
     public override object PerformFunction()

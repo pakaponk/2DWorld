@@ -8,7 +8,7 @@ public class ADLGetCenterDistanceFunction: ADLFunction {
 
     private ADLBaseAgent GetAgent(int parameterIndex) {
         string agentName = this.GetStringParameter(parameterIndex);
-        return ADLBaseAgent.FindAgent(agentName);
+        return ADLBaseAgent.FindAgent(agentName, ADLAgent.currentUpdatingAgent.transform.parent);
     }
 
     public override object PerformFunction()

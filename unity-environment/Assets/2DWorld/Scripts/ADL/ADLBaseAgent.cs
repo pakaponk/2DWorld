@@ -2,12 +2,12 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public abstract class ADLBaseAgent : PhysicsObject{
-	public static readonly List<ADLBaseAgent> agents = new List<ADLBaseAgent>();
-	public static ADLBaseAgent FindAgent(string name){
+    public static readonly Dictionary<Transform, List<ADLBaseAgent>> agents = new Dictionary<Transform, List<ADLBaseAgent>>();
+    public static ADLBaseAgent FindAgent(string name, Transform parent){
 		if (name.Equals("Self"))
 			return ADLAgent.currentUpdatingAgent;
 		else
-			return agents.Find(agent => agent.agentName.Equals(name));
+			return agents[parent].Find(agent => agent.agentName.Equals(name));
 	}
 
 	public string agentName; 
@@ -33,8 +33,16 @@ public abstract class ADLBaseAgent : PhysicsObject{
 	public Vector2 prevPosition;
 	public Vector2 prevVelocity;
 
-	public void Awake(){
-		ADLBaseAgent.agents.Add(this);
+    public void Awake(){
+		List<ADLBaseAgent> list;
+		if (agents.ContainsKey(this.transform.parent)) {
+			list = ADLBaseAgent.agents[this.transform.parent];
+		}
+		else {
+			list = new List<ADLBaseAgent>();
+			ADLBaseAgent.agents.Add(this.transform.parent, list);
+		}
+		list.Add(this);
 	}
 
 	protected new void Start(){
@@ -54,7 +62,7 @@ public abstract class ADLBaseAgent : PhysicsObject{
 	}
 
 	protected virtual void OnDestroy(){
-		ADLBaseAgent.agents.Remove(this);
+		ADLBaseAgent.agents[this.transform.parent].Remove(this);
 	}
 
 	public bool Attack(ADLBaseAgent agent){

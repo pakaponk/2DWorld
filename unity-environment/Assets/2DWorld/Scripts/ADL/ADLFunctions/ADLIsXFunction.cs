@@ -12,7 +12,7 @@ public class ADLIsXFunction : ADLFunction{
 
     private ADLBaseAgent GetAgent(){
         string agentName = this.GetStringParameter(1);
-        return ADLBaseAgent.FindAgent(agentName);
+        return ADLBaseAgent.FindAgent(agentName, ADLAgent.currentUpdatingAgent.transform.parent);
     }
 
     public override object PerformFunction()

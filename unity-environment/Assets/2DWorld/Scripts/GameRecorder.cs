@@ -64,7 +64,7 @@ public class GameRecorder : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (state.Equals(GameState.Running) && isControlledByPlayer) {
-			PlayerInput input = new PlayerInput(ADLBaseAgent.FindAgent("Player"),Input.GetAxis("Horizontal"), Input.GetButtonDown("Fire1"), Input.GetButtonDown("Jump"), Input.GetButtonUp("Jump"));
+			PlayerInput input = new PlayerInput(ADLBaseAgent.FindAgent("Player", this.transform.parent),Input.GetAxis("Horizontal"), Input.GetButtonDown("Fire1"), Input.GetButtonDown("Jump"), Input.GetButtonUp("Jump"));
 			playerInputSequence.Add(input);
 
 			// string json = JsonUtility.ToJson(new ListWrapper<Entity>(entities));
@@ -86,7 +86,7 @@ public class GameRecorder : MonoBehaviour {
 			// playerInputSequence.Add(input);
 
 			List<Entity> entities = new List<Entity>();
-			foreach (ADLBaseAgent agent in ADLBaseAgent.agents) {
+			foreach (ADLBaseAgent agent in ADLBaseAgent.agents[this.transform.parent]) {
 				Entity entity = new Entity(agent);
 				entities.Add(entity);
 			}

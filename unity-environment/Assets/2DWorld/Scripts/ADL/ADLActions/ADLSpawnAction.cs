@@ -53,7 +53,7 @@ public class ADLSpawnAction : ADLAction{
         
         if (spawnDirection.Equals("TowardPlayer")) {
             try {
-                ADLBaseAgent player = ADLBaseAgent.FindAgent("Player");
+                ADLBaseAgent player = ADLBaseAgent.FindAgent("Player", agent.transform.parent);
                 if (player.transform.localPosition.x > agent.transform.localPosition.x) {
                     SetProjectilePositionAndDirection(subAgent, ADLBaseAgent.Direction.Normal);
                 } else {
