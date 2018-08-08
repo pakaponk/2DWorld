@@ -85,5 +85,7 @@ python/summaries
 # Firebase Configuration Files
 /unity-environment/Assets/google-services.json
 /unity-environment/Assets/google-services.json.meta
+/unity-environment/Assets/StreamingAssets/google-services-*.json
+/unity-environment/Assets/StreamingAssets/google-services-*.json.meta
 /unity-environment/Assets/GoogleService-Info.plist
 /unity-environment/Assets/GoogleService-Info.plist.meta
