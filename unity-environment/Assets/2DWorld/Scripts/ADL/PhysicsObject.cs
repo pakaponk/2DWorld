@@ -88,8 +88,11 @@ public class PhysicsObject : MonoBehaviour {
 					velocity = velocity - (projection * currentNormal);
 				}
 
-				float modifiedDistance  = hitBufferList[i].distance - shellRadius;
-				distance = modifiedDistance < distance ? modifiedDistance : distance;
+				GameObject hitObject = hitBufferList[i].transform.gameObject;
+				if (hitObject.layer == 13) {
+					float modifiedDistance  = hitBufferList[i].distance - shellRadius;
+					distance = modifiedDistance < distance ? modifiedDistance : distance;
+				}
 			}
 		}
 		
