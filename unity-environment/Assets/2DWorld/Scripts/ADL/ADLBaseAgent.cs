@@ -136,7 +136,7 @@ public abstract class ADLBaseAgent : PhysicsObject{
 		//Attack Event
 		if (this.Attack(agent)){
 			if (!agent.IsAlive()) {
-				if (agent is PlayerController && agent.gameObject.GetComponent<PlayerAgent>() != null) {
+				if (agent is PlayerController && agent.gameObject.GetComponent<RockmanVisualAgent>() != null) {
 					// Do Nothing
 				} else {
 					Destroy(agent.gameObject);

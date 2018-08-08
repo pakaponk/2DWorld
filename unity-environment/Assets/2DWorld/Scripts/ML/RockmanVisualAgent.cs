@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MLAgents;
 
-public class PlayerAgent : Agent {
+public class RockmanVisualAgent : Agent {
 
 	protected struct AgentInput {
 		public float axis;
