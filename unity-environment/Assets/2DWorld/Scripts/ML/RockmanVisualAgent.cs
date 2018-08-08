@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -70,22 +70,22 @@ public class PlayerAgent : Agent {
 		Vector2 relativeDistance = enemyPosition - playerPosition;
 
 		// Player Position
-		AddVectorObs(playerPosition.x / X_RANGE);
-		AddVectorObs(playerPosition.y / Y_RANGE);
-		// Enemy Position
-		AddVectorObs(enemyPosition.x / X_RANGE);
-		AddVectorObs(enemyPosition.y / Y_RANGE);
+		// AddVectorObs(playerPosition.x / X_RANGE);
+		// AddVectorObs(playerPosition.y / Y_RANGE);
+		// // Enemy Position
+		// AddVectorObs(enemyPosition.x / X_RANGE);
+		// AddVectorObs(enemyPosition.y / Y_RANGE);
 
-		// Relative Distance to Enemy
-		AddVectorObs(Math.Abs(relativeDistance.x) / MAX_X_DISTANCE);
-		AddVectorObs(Math.Abs(relativeDistance.y) / MAX_Y_DISTANCE);
+		// // Relative Distance to Enemy
+		// AddVectorObs(Math.Abs(relativeDistance.x) / MAX_X_DISTANCE);
+		// AddVectorObs(Math.Abs(relativeDistance.y) / MAX_Y_DISTANCE);
 
-		// Player Velocity
-		AddVectorObs(this.Player.velocity.x / 5f);
-		AddVectorObs(this.Player.velocity.y / 12f);
-		// Enemy Velocity
-		AddVectorObs(this.Enemy.velocity.x / 20f);
-		AddVectorObs(this.Enemy.velocity.y / 20f);	
+		// // Player Velocity
+		// AddVectorObs(this.Player.velocity.x / 5f);
+		// AddVectorObs(this.Player.velocity.y / 12f);
+		// // Enemy Velocity
+		// AddVectorObs(this.Enemy.velocity.x / 20f);
+		// AddVectorObs(this.Enemy.velocity.y / 20f);	
 
 		// Player & Enemy Life
 		AddVectorObs(this.Player.lifePoint / this.playerMaxLifePoint);
@@ -102,7 +102,7 @@ public class PlayerAgent : Agent {
 			!prevJumpValue && agentInput.isJumpPressed, 
 			prevJumpValue && !agentInput.isJumpPressed
 		);
-		
+
 		this.horizontalAction.Perform(playerInput);
 		this.jumpAction.Perform(playerInput);
 		this.shootAction.Perform(playerInput);
@@ -126,7 +126,7 @@ public class PlayerAgent : Agent {
 			AddReward(-1f);
 			Done();
 		}
-		
+
 		// Reward when got damaged
 		if (this.prevPlayerLifePoint > this.Player.lifePoint) {
 			float damagePoint = this.prevPlayerLifePoint - this.Player.lifePoint;

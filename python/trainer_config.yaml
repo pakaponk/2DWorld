@@ -232,7 +232,7 @@ StudentRecurrentBrain:
     sequence_length: 32
     buffer_size: 128
 
-RockmanBrain:
+RockmanVisualBrain:
     beta: 1.0e-2
     hidden_units: 512
     max_steps: 5.0e5
