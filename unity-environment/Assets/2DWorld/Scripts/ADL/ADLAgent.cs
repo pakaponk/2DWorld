@@ -28,53 +28,31 @@ public class ADLAgent : ADLBaseAgent {
 	public new void Start () {
 		if (!this.isInitStateExecuted) {
 			this.CompileScript();
-			
-			this.agentName = this.agentScript.agentName;
-			this.gameObject.name = this.agentName;
 
-			ADLState initState = this.agentScript.states.Find((state) => state.name.Equals("init"));
-
-			if (initState != null)
-			{
-				foreach (ADLAction action in initState.seqs[0].actions)
-				{
-					action.PerformAction(this);
-				}
-
-				ADLState firstState = this.agentScript.states.Find((state) => !state.name.Equals("init") && !state.name.Equals("des"));
-				if (firstState != null) {
-					this.simulationState = new SimulationState(this.agentScript.states[1]);
-				} else {
-					throw new Exception("Unable to find the first state after init state");
-				}
+			if (this.agentScript != null) {	
+				InitializeAgent();
 			}
-
-			base.Start();
-
-			if (agentLifePointText != null) {
-				agentLifePointText.text = "LP: " + this.lifePoint;
-			}
-
-			this.isInitStateExecuted = true;
 		}
 	}
 	
 	// Update is called once per frame
 	protected new void FixedUpdate () {
-		ADLAgent.currentUpdatingAgent = this;
+		if (this.agentScript != null) {
+			ADLAgent.currentUpdatingAgent = this;
 
-		this.PerformAction();
+			this.PerformAction();
 
-		base.FixedUpdate();
+			base.FixedUpdate();
 
-		this.UpdateSimulationState();
+			this.UpdateSimulationState();
 
-		this.collisionList.Clear();
+			this.collisionList.Clear();
 
-		if (this.isProjectile && !this.isHittableByEnvironment) {
-			if (this.rb2d.position.x < -12 || this.rb2d.position.x > 12 ||
-				this.rb2d.position.y < -8 || this.rb2d.position.y > 8) {
-				Destroy(this.gameObject);
+			if (this.isProjectile && !this.isHittableByEnvironment) {
+				if (this.rb2d.position.x < -12 || this.rb2d.position.x > 12 ||
+					this.rb2d.position.y < -8 || this.rb2d.position.y > 8) {
+					Destroy(this.gameObject);
+				}
 			}
 		}
 	}
@@ -84,6 +62,36 @@ public class ADLAgent : ADLBaseAgent {
 		if (this.group.Equals(Group.Enemy) && !this.isProjectile && !this.IsAlive()) {
 			GameRecorder.instance?.End();
 		}
+	}
+
+	private void InitializeAgent() {
+		this.agentName = this.agentScript.agentName;
+		this.gameObject.name = this.agentName;
+
+		ADLState initState = this.agentScript.states.Find((state) => state.name.Equals("init"));
+
+		if (initState != null)
+		{
+			foreach (ADLAction action in initState.seqs[0].actions)
+			{
+				action.PerformAction(this);
+			}
+
+			ADLState firstState = this.agentScript.states.Find((state) => !state.name.Equals("init") && !state.name.Equals("des"));
+			if (firstState != null) {
+				this.simulationState = new SimulationState(this.agentScript.states[1]);
+			} else {
+				throw new Exception("Unable to find the first state after init state");
+			}
+		}
+
+		base.Start();
+
+		if (agentLifePointText != null) {
+			agentLifePointText.text = "LP: " + this.lifePoint;
+		}
+
+		this.isInitStateExecuted = true;
 	}
 
 	private void PerformAction() {

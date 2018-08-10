@@ -1,0 +1,27 @@
+.EasyManLeft{
+    .init{
+        Set("lifePoint", 100);
+		Set("attack", 20);
+		Set("isAttacker", true);
+		Set("isDefender", true);
+		Set("isFlipper", false);
+		Set("isFlippable", false);
+		Set("isProjectile", false);
+		Set("group", "Enemy");
+		Set("x", -5.64);
+		Set("y", -4.24);
+		Set("width", 1);
+		Set("height", 1);
+		Set("horizontalDirection", 1);
+		Set("verticalDirection", 1);
+		Set("isHittableByProjectile", false);
+    }
+    .state1{
+        .seq1{
+            FlipTowardPlayer();
+            Move(2, 0, IsX(GetX("Player"), "Self"));
+            Wait(4000);
+            ToState("state1");
+        }
+    }
+}

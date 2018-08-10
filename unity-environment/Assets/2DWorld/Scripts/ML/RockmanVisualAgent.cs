@@ -117,15 +117,6 @@ public class RockmanVisualAgent : Agent {
 	}
 
 	protected virtual void CollectRewards() {
-		// Reward when the environment end
-		if (Enemy.lifePoint <= 0) {
-			AddReward(1f);
-			Done();
-		}
-		else if (Player.lifePoint <= 0) {
-			AddReward(-1f);
-			Done();
-		}
 
 		// Reward when got damaged
 		if (this.prevPlayerLifePoint > this.Player.lifePoint) {
@@ -136,8 +127,18 @@ public class RockmanVisualAgent : Agent {
 		// Reward when able to damage the enemy
 		// if (this.prevEnemyLifePoint > this.Enemy.lifePoint) {
 		// 	float damagePoint = this.prevEnemyLifePoint - this.Enemy.lifePoint;
-		// 	AddReward((damagePoint / this.enemyMaxLifePoint) * 0.5f);
+		// 	AddReward((damagePoint / this.enemyMaxLifePoint));
 		// }
+
+		// Reward when the environment end
+		if (Enemy.lifePoint <= 0) {
+			AddReward(1f);
+			Done();
+		}
+		else if (Player.lifePoint <= 0) {
+			AddReward(-1f);
+			Done();
+		}
 	}
 
 	public override void AgentReset() {
@@ -164,7 +165,7 @@ public class RockmanVisualAgent : Agent {
 	}
 
 	private void ResetPlayer() {
-		this.Player.transform.localPosition = FindObjectOfType<BossFightAcademy>().RandomInitialPosition();
+		this.Player.transform.localPosition = BossFightAcademy.Instance.RandomInitialPosition();
 		this.Player.lifePoint = this.playerMaxLifePoint;
 		this.Player.agentLifePointText.text = "LP: " + this.Player.lifePoint;
 		this.Player.isGrounded = false;
@@ -179,12 +180,14 @@ public class RockmanVisualAgent : Agent {
 
 	private void ResetEnemy(bool isEnemyAlive) {
 		if (isEnemyAlive) {
+			this.Enemy.agentScript = BossFightAcademy.Instance.RandomEnemyScript();
 			this.Enemy.isInitStateExecuted = false;
 			this.Enemy.Start();
 		} else {
 			Text enemyLifePointText = this.Enemy.agentLifePointText;
 			GameObject enemy = Instantiate(EnemyPrefab, this.transform.parent);
 			this.Enemy = enemy.GetComponent<ADLAgent>();
+			this.Enemy.agentScript = BossFightAcademy.Instance.RandomEnemyScript();
 			this.Enemy.agentLifePointText = enemyLifePointText;
 		}
 	}
