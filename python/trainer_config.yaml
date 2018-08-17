@@ -239,3 +239,14 @@ RockmanVisualBrain:
     hidden_units: 256
     max_steps: 1.0e6
     num_layers: 3
+
+RockmanLSTMBrain:
+    use_recurrent: true
+    sequence_length: 64
+    memory_size: 256 
+    beta: 1.0e-2
+    batch_size: 128
+    buffer_size: 2048
+    hidden_units: 256
+    max_steps: 1.0e6
+    num_layers: 3
