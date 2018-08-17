@@ -236,6 +236,6 @@ RockmanVisualBrain:
     beta: 1.0e-2
     batch_size: 128
     buffer_size: 2048
-    hidden_units: 512
+    hidden_units: 256
     max_steps: 1.0e6
     num_layers: 3
